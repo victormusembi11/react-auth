@@ -8,7 +8,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
-import { Layout, AuthLayout } from "./layout";
+import { Layout, AuthAdminLayout } from "./layout";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AuthLayout />,
+    element: <AuthAdminLayout />,
     children: [
       {
         path: "/admin/dashboard",
