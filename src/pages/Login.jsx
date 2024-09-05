@@ -15,8 +15,8 @@ export default function Login() {
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      const token = localStorage.setItem("token", data.token);
-      const decodedToken = jwtDecode(token);
+      localStorage.setItem("token", data.token);
+      const decodedToken = jwtDecode(data.token);
 
       if (decodedToken.role === "ADMIN") {
         navigate("/admin/dashboard");
