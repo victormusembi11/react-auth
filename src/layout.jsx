@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import Nav, { AdminNav } from "./components/Nav";
 import { Outlet, Navigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export function Layout({ children }) {
   return (
@@ -12,17 +13,37 @@ export function Layout({ children }) {
   );
 }
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ role }) => {
   const token = localStorage.getItem("token");
 
-  return token ? <Outlet /> : <Navigate to="/login?error_message=login to view page" />;
+  if (!token) {
+    return <Navigate to="/login?error_message=login to view page" />;
+  }
+
+  const decodedToken = jwtDecode(token);
+
+  if (decodedToken.role !== role) {
+    return <Navigate to="/login?error_message=login to view page" />;
+  }
+
+  return <Outlet />;
 };
 
-export function AuthLayout({ children }) {
+export function AuthAdminLayout({ children }) {
   return (
     <div>
       <AdminNav />
-      <ProtectedRoute />
+      <ProtectedRoute role="ADMIN" />
+      {children}
+    </div>
+  );
+}
+
+export function AuthUserLayout({ children }) {
+  return (
+    <div>
+      <AdminNav />
+      <ProtectedRoute role="USER" />
       {children}
     </div>
   );
