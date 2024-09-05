@@ -13,7 +13,8 @@ export default function Login() {
 
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      localStorage.setItem("token", data.token);
       navigate("/admin/dashboard");
     },
     onError: (error) => {
