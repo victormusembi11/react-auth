@@ -1,27 +1,34 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Layout } from "./layout";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+    ],
   },
 ]);
 
