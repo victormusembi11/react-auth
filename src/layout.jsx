@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import Nav, { AdminNav } from "./components/Nav";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 export function Layout({ children }) {
   return (
@@ -12,11 +12,17 @@ export function Layout({ children }) {
   );
 }
 
+const ProtectedRoute = () => {
+  const token = localStorage.getItem("token");
+
+  return token ? <Outlet /> : <Navigate to="/login?error_message=login to view page" />;
+};
+
 export function AuthLayout({ children }) {
   return (
     <div>
       <AdminNav />
-      <Outlet />
+      <ProtectedRoute />
       {children}
     </div>
   );
