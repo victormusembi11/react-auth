@@ -41,3 +41,27 @@ export function AdminNav() {
     </nav>
   );
 }
+
+export function UserNav() {
+  const navigate = useNavigate();
+
+  return (
+    <nav>
+      <ul>
+        <li>
+          <a href="/user/dashboard">Dashboard</a>
+        </li>
+        <li>
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/login");
+            }}
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+}
