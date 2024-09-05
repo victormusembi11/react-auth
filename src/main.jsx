@@ -6,9 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/Admin/Dashboard";
+import UserDashboard from "./pages/Admin/Dashboard";
 
-import { Layout, AuthAdminLayout } from "./layout";
+import { Layout, AuthAdminLayout, AuthUserLayout } from "./layout";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +38,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin/dashboard",
-        element: <Dashboard />,
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    element: <AuthUserLayout />,
+    children: [
+      {
+        path: "/user/dashboard",
+        element: <UserDashboard />,
       },
     ],
   },
