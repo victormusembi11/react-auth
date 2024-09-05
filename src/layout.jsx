@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Nav, { AdminNav } from "./components/Nav";
+import Nav, { AdminNav, UserNav } from "./components/Nav";
 import { Outlet, Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
@@ -42,7 +42,7 @@ export function AuthAdminLayout({ children }) {
 export function AuthUserLayout({ children }) {
   return (
     <div>
-      <AdminNav />
+      <UserNav />
       <ProtectedRoute role="USER" />
       {children}
     </div>
