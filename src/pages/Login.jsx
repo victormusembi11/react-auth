@@ -2,6 +2,7 @@ import axiosInstance from "../../utils/axios";
 
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const login = async (credentials) => {
   const response = await axiosInstance.post("/users/login", credentials);
@@ -14,8 +15,18 @@ export default function Login() {
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      localStorage.setItem("token", data.token);
-      navigate("/admin/dashboard");
+      const token = localStorage.setItem("token", data.token);
+      const decodedToken = jwtDecode(token);
+
+      if (decodedToken.role === "ADMIN") {
+        navigate("/admin/dashboard");
+        return;
+      }
+
+      if (decodedToken.role === "USER") {
+        navigate("/user/dashboard");
+        return;
+      }
     },
     onError: (error) => {
       console.error("Login failed:", error);
