@@ -15,3 +15,15 @@ export default function Nav() {
     </nav>
   );
 }
+
+export function AdminNav() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <a href="/admin/dashboard">Dashboard</a>
+        </li>
+      </ul>
+    </nav>
+  );
+}
