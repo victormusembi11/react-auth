@@ -2,6 +2,7 @@
 import axiosInstance from "@/utils/axios";
 
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation"; // Updated import
 
 const login = async (credentials: { email: string; password: string }) => {
   const response = await axiosInstance.post("/users/login", credentials);
@@ -9,11 +10,12 @@ const login = async (credentials: { email: string; password: string }) => {
 };
 
 export default function Page() {
+  const router = useRouter();
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: login,
     onSuccess: (data: { token: string }) => {
       localStorage.setItem("token", data.token);
-      console.log("Logged in:", data);
+      router.push("/admin/dashboard");
     },
     onError: (error) => {
       console.error(error);
