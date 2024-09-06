@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import Nav from "@/components/nav";
+import AuthLayout from "@/components/layouts";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
-  description: "Admin dashboard for the Next.js implementation",
+  title: "User Dashboard",
+  description: "User dashboard for the Next.js implementation",
 };
 
 export default function RootLayout({
@@ -12,10 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <Nav />
-      {children}
-    </>
-  );
+  return <AuthLayout requiredRole="USER">{children}</AuthLayout>;
 }

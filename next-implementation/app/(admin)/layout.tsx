@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import Nav from "@/components/nav";
+import AuthLayout from "@/components/layouts";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -12,10 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <Nav />
-      {children}
-    </>
-  );
+  return <AuthLayout requiredRole="ADMIN">{children}</AuthLayout>;
 }
