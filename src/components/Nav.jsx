@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   return (
     <nav>
       <ul>
@@ -10,9 +13,24 @@ export default function Nav() {
         <li>
           <a href="/about">About</a>
         </li>
-        <li>
-          <a href="/login">Login</a>
-        </li>
+        {token ? (
+          <>
+            <li>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        )}
       </ul>
     </nav>
   );
