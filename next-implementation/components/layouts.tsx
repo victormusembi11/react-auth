@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import Nav from "@/components/nav";
 
 function AuthLayout({ children, requiredRole }: { children: React.ReactNode; requiredRole: string }) {
   const router = useRouter();
