@@ -1,31 +1,29 @@
+/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 
-export default function Nav() {
+function Nav({ links }) {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   return (
     <nav>
       <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/about">About</a>
-        </li>
+        {links.map((link) => (
+          <li key={link.path}>
+            <a href={link.path}>{link.label}</a>
+          </li>
+        ))}
         {token ? (
-          <>
-            <li>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  navigate("/login");
-                }}
-              >
-                Logout
-              </button>
-            </li>
-          </>
+          <li>
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/login");
+              }}
+            >
+              Logout
+            </button>
+          </li>
         ) : (
           <li>
             <a href="/login">Login</a>
@@ -36,50 +34,20 @@ export default function Nav() {
   );
 }
 
-export function AdminNav() {
-  const navigate = useNavigate();
+export function MainNav() {
+  const links = [
+    { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
+  ];
+  return <Nav links={links} />;
+}
 
-  return (
-    <nav>
-      <ul>
-        <li>
-          <a href="/admin/dashboard">Dashboard</a>
-        </li>
-        <li>
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              navigate("/login");
-            }}
-          >
-            Logout
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
+export function AdminNav() {
+  const links = [{ path: "/admin/dashboard", label: "Dashboard" }];
+  return <Nav links={links} />;
 }
 
 export function UserNav() {
-  const navigate = useNavigate();
-
-  return (
-    <nav>
-      <ul>
-        <li>
-          <a href="/user/dashboard">Dashboard</a>
-        </li>
-        <li>
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              navigate("/login");
-            }}
-          >
-            Logout
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
+  const links = [{ path: "/user/dashboard", label: "Dashboard" }];
+  return <Nav links={links} />;
 }
