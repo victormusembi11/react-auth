@@ -1,8 +1,52 @@
-# React + Vite
+# React/Next Authentication & Authorization with JWT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple project to demonstrate how to implement authentication and authorization in a React/Next.js application using JWT.
 
-Currently, two official plugins are available:
+## Backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create a `.env` file in the `backend` directory with the following content:
+
+```bash
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname
+JWT_SECRET="your-secret"
+```
+
+Then run the following commands:
+
+```bash
+cd backend
+npm install
+npx prisma generate
+npm run dev
+```
+
+## React Frontend
+
+Create a `.env.local` file in the `frontend` directory with the following content:
+
+```bash
+NEXT_PUBLIC_API_URL="http://localhost:5000"
+```
+
+Then run the following commands:
+
+```bash
+npm install
+npm run dev
+```
+
+## Next.js Frontend
+
+Create a `.env.local` file in the `nextjs-implementation` directory with the following content:
+
+```bash
+NEXT_PUBLIC_API_URL="http://localhost:5000"
+```
+
+Then run the following commands:
+
+```bash
+cd nextjs-frontend
+npm install
+npm run dev
+```
